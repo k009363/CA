@@ -90,7 +90,7 @@ def login():
 
     user = mongo.db.users.find_one({"phone": phone})
     if not user:
-        return jsonify({"error": "User not found"}), 404
+        return jsonify({"error": "Invalid phone or password"}), 401
 
     is_admin = user.get("role") == "admin"
 

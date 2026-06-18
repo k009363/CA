@@ -1,3 +1,4 @@
+import certifi
 from flask import Flask
 from flask_cors import CORS
 from extensions import mongo
@@ -9,7 +10,7 @@ def create_app():
     app.config.from_object(Config)
 
     CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
-    mongo.init_app(app)
+    mongo.init_app(app, tlsCAFile=certifi.where())
 
     # Ensure indexes and default settings document exist
     with app.app_context():

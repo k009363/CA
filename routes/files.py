@@ -29,6 +29,9 @@ def upload():
         return jsonify({"error": "File too large (max 25 MB)"}), 413
 
     mime = file.content_type or ""
+    if not any(mime.startswith(p) for p in ALLOWED_MIME_PREFIXES):
+        return jsonify({"error": "File type not allowed"}), 415
+
     original_name = file.filename
 
     try:
