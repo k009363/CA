@@ -1,4 +1,5 @@
 import os
+import certifi
 from urllib.parse import urlparse, urlunparse
 from dotenv import load_dotenv
 
@@ -25,6 +26,7 @@ class Config:
     MONGO_URI  = _ensure_db_name(
         os.getenv("MONGO_URI", "mongodb://localhost:27017/chatapp")
     )
+    MONGO_TLS_CA_FILE = certifi.where()
     JWT_SECRET          = os.getenv("JWT_SECRET", "jwt-dev-secret")
     JWT_EXPIRY_HOURS    = 24
     CLOUDINARY_CLOUD_NAME   = os.getenv("CLOUDINARY_CLOUD_NAME", "")
